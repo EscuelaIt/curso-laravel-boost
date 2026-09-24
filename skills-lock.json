@@ -1,0 +1,11 @@
+{
+  "version": 1,
+  "skills": {
+    "dile-components": {
+      "source": "polydile/dile-components",
+      "sourceType": "github",
+      "skillPath": "skills/dile-components/SKILL.md",
+      "computedHash": "16b286290c84a25e2a29a657461048f63b709c3252a8380c8458eb25e90545a2"
+    }
+  }
+}
