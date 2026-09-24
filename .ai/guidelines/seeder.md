@@ -1,0 +1,1 @@
+Cuando hagas seeders para cualquier entidad debes crearlos en una clase seeder dedicada para esa entidad.
