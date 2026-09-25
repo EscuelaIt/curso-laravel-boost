@@ -1,7 +1,7 @@
-# Rules Index
+# Project Rules Index
 
-This file maps code paths to their corresponding rule files.
+Before planning or editing, find the row whose globs match the file's path and read that rule file.
 
-| Pattern | Rule File |
-|---------|-----------|
-| `app/Models/**` | [models.md](./models.md) |
+| Applies to | Rule file |
+| --- | --- |
+| app/Models/** | .ai/rules/models.md |

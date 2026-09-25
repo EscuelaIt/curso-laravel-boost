@@ -14,6 +14,13 @@
 <script lang="ts">
     import AppHead from '@/components/AppHead.svelte';
     import PlaceholderPattern from '@/components/PlaceholderPattern.svelte';
+    import UnreadMessagesCard from '@/components/UnreadMessagesCard.svelte';
+
+    let {
+        unreadMessagesCount,
+    }: {
+        unreadMessagesCount?: number;
+    } = $props();
 </script>
 
 <AppHead title="Dashboard" />
@@ -21,9 +28,9 @@
 <div class="flex h-full flex-1 flex-col gap-4 overflow-x-auto rounded-xl p-4">
     <div class="grid auto-rows-min gap-4 md:grid-cols-3">
         <div
-            class="relative aspect-video overflow-hidden rounded-xl border border-sidebar-border/70 dark:border-sidebar-border"
+            class="relative aspect-video rounded-xl border border-sidebar-border/70 dark:border-sidebar-border"
         >
-            <PlaceholderPattern />
+            <UnreadMessagesCard {unreadMessagesCount} />
         </div>
         <div
             class="relative aspect-video overflow-hidden rounded-xl border border-sidebar-border/70 dark:border-sidebar-border"

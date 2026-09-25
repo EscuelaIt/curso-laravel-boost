@@ -4,26 +4,48 @@
     import { Button } from '@/components/ui/button';
     import { Input } from '@/components/ui/input';
     import { Label } from '@/components/ui/label';
+    import { store } from '@/routes/messages';
 
     let {
+        recipientId,
         onCancel,
+        onSent,
     }: {
+        recipientId: number;
         onCancel?: () => void;
+        onSent?: () => void;
     } = $props();
 
     const uid = $props.id();
 
-    const form = useForm({
+    const form = useForm<{
+        recipient_id?: number;
+        subject: string;
+        body: string;
+    }>({
         subject: '',
         body: '',
     });
 
     function submit(event: SubmitEvent): void {
         event.preventDefault();
+
+        form.transform((data) => ({
+            ...data,
+            recipient_id: recipientId,
+        })).submit(store(), {
+            preserveScroll: true,
+            onSuccess: () => {
+                form.reset();
+                onSent?.();
+            },
+        });
     }
 </script>
 
 <form onsubmit={submit} class="space-y-4">
+    <InputError message={form.errors.recipient_id} />
+
     <div class="grid gap-2">
         <Label for="{uid}-subject">Subject</Label>
         <Input

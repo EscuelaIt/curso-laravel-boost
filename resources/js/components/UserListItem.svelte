@@ -31,7 +31,11 @@
 
     {#if isMessageFormOpen}
         <div transition:slide={{ duration: 250 }} class="pt-4">
-            <MessageForm onCancel={() => (isMessageFormOpen = false)} />
+            <MessageForm
+                recipientId={user.id}
+                onCancel={() => (isMessageFormOpen = false)}
+                onSent={() => (isMessageFormOpen = false)}
+            />
         </div>
     {/if}
 </li>
