@@ -12,11 +12,9 @@
 </script>
 
 <script lang="ts">
-    import Send from '@lucide/svelte/icons/send';
     import AppHead from '@/components/AppHead.svelte';
     import Heading from '@/components/Heading.svelte';
-    import { Button } from '@/components/ui/button';
-    import UserInfo from '@/components/UserInfo.svelte';
+    import UserListItem from '@/components/UserListItem.svelte';
     import type { User } from '@/types';
 
     let {
@@ -43,13 +41,7 @@
             class="divide-y divide-sidebar-border/70 rounded-xl border border-sidebar-border/70 dark:divide-sidebar-border dark:border-sidebar-border"
         >
             {#each users as user (user.id)}
-                <li class="flex items-center gap-3 p-4">
-                    <UserInfo user={user as User} showEmail />
-                    <Button variant="outline" size="sm">
-                        <Send />
-                        Send message
-                    </Button>
-                </li>
+                <UserListItem {user} />
             {/each}
         </ul>
     {/if}
