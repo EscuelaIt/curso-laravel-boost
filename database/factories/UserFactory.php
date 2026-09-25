@@ -33,6 +33,7 @@ class UserFactory extends Factory
             'two_factor_secret' => null,
             'two_factor_recovery_codes' => null,
             'two_factor_confirmed_at' => null,
+            'is_favorite' => false,
         ];
     }
 
@@ -43,6 +44,16 @@ class UserFactory extends Factory
     {
         return $this->state(fn (array $attributes) => [
             'email_verified_at' => null,
+        ]);
+    }
+
+    /**
+     * Indicate that the user is marked as favorite.
+     */
+    public function favorite(): static
+    {
+        return $this->state(fn (array $attributes) => [
+            'is_favorite' => true,
         ]);
     }
 

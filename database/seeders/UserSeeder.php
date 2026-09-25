@@ -17,9 +17,15 @@ class UserSeeder extends Seeder
     {
         User::factory(10)->sequence(
             fn ($sequence) => [
-                'name' => 'User ' . ($sequence->index + 1),
-                'email' => 'user' . ($sequence->index + 1) . '@example.com',
+                'name' => 'User '.($sequence->index + 1),
+                'email' => 'user'.($sequence->index + 1).'@example.com',
             ]
         )->create();
+
+        User::factory()->create([
+            'name' => 'Miguel Angel',
+            'email' => 'miguel@escuela.it',
+            'password' => 'password',
+        ]);
     }
 }

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "0d17fd7b0ba23ccb6c3390f65fd615cc",
+    "content-hash": "65e459702b322f0404324bcade30dc59",
     "packages": [
         {
             "name": "bacon/bacon-qr-code",
@@ -663,6 +663,70 @@
                 }
             ],
             "time": "2025-03-06T22:45:56+00:00"
+        },
+        {
+            "name": "escuelait/laravel-api-kit",
+            "version": "v1.2.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/EscuelaIt/laravel-api-kit.git",
+                "reference": "0a206450b6e30d199eacd2d9ee369564bae93ef2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/EscuelaIt/laravel-api-kit/zipball/0a206450b6e30d199eacd2d9ee369564bae93ef2",
+                "reference": "0a206450b6e30d199eacd2d9ee369564bae93ef2",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/http": "^9.0|^10.0|^11.0|^12.0|^13.0",
+                "illuminate/support": "^9.0|^10.0|^11.0|^12.0|^13.0",
+                "negartarh/apiwrapper": "^0.9.1",
+                "php": "^8.1"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "^3.93",
+                "orchestra/testbench": "^10.9",
+                "phpunit/phpunit": "^12.5"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "EscuelaIT\\APIKit\\APIKitServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "EscuelaIT\\APIKit\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "midesweb",
+                    "email": "malvarez@escuela.it",
+                    "homepage": "https://escuela.it",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Utilities to create consistent APIs in Laravel.",
+            "homepage": "https://github.com/EscuelaIt/laravel-api-kit",
+            "keywords": [
+                "api",
+                "escuelait",
+                "kit",
+                "resource"
+            ],
+            "support": {
+                "issues": "https://github.com/EscuelaIt/laravel-api-kit/issues",
+                "source": "https://github.com/EscuelaIt/laravel-api-kit/tree/v1.2.2"
+            },
+            "time": "2026-09-14T21:12:05+00:00"
         },
         {
             "name": "fruitcake/php-cors",
@@ -2690,6 +2754,81 @@
                 }
             ],
             "time": "2026-09-09T08:34:20+00:00"
+        },
+        {
+            "name": "negartarh/apiwrapper",
+            "version": "v0.9.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/negartarh/apiwrapper.git",
+                "reference": "22f56bab9c309e70cd9b79870ece514d65b213d5"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/negartarh/apiwrapper/zipball/22f56bab9c309e70cd9b79870ece514d65b213d5",
+                "reference": "22f56bab9c309e70cd9b79870ece514d65b213d5",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": "^v9.0.0|^v10.0.0|^v11.0.0|^v12.0.0|^v13.0.0",
+                "php": ">=8.1"
+            },
+            "require-dev": {
+                "orchestra/testbench": "^8.0|^9.0",
+                "pestphp/pest": "^v2.24.2|^v3.0.0",
+                "pestphp/pest-plugin-laravel": "^v2.2.0",
+                "pestphp/pest-plugin-type-coverage": "^2.4"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "aliases": {
+                        "APIResponse": "Negartarh\\APIWrapper\\Facades\\APIResponse"
+                    },
+                    "providers": [
+                        "Negartarh\\APIWrapper\\APIResponseServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "files": [
+                    "src/Helpers/functions.php"
+                ],
+                "psr-4": {
+                    "Negartarh\\APIWrapper\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Negar Tarh Giti (Privet Joint Stock Company)",
+                    "email": "2020amiramir@gmail.com",
+                    "role": "Creator & Maintainer"
+                }
+            ],
+            "description": "Super Fast, Lightweight, Standard, Octane Compatible, and High Customizable package for Laravel API responses",
+            "homepage": "https://github.com/negartarh/apiwrapper",
+            "keywords": [
+                "LARAVEL OCTANE",
+                "RESTful API",
+                "api",
+                "json",
+                "laravel",
+                "laravel response",
+                "php",
+                "response",
+                "rest",
+                "restful",
+                "rfc"
+            ],
+            "support": {
+                "issues": "https://github.com/negartarh/apiwrapper/issues",
+                "source": "https://github.com/negartarh/apiwrapper/tree/v0.9.1"
+            },
+            "time": "2026-05-10T19:36:14+00:00"
         },
         {
             "name": "nesbot/carbon",
