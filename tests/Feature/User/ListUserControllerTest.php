@@ -1,9 +1,18 @@
 <?php
 
 use App\Models\User;
+use Laravel\Sanctum\Sanctum;
 
-test('guests can list users', function () {
-    User::factory()->count(3)->create();
+test('guests cannot list users', function () {
+    $this->getJson(route('api.users.index'))
+        ->assertUnauthorized()
+        ->assertJsonPath('status', 401)
+        ->assertJsonPath('message', 'Unauthorized');
+});
+
+test('authenticated users can list users', function () {
+    Sanctum::actingAs(User::factory()->create());
+    User::factory()->count(2)->create();
 
     $response = $this->getJson(route('api.users.index'));
 
@@ -14,6 +23,7 @@ test('guests can list users', function () {
 
 test('keyword search matches users by name', function () {
     $matchingUser = User::factory()->create(['name' => 'Miguel Angel', 'email' => 'first@example.com']);
+    Sanctum::actingAs($matchingUser);
     User::factory()->create(['name' => 'Laura Perez', 'email' => 'second@example.com']);
 
     $response = $this->getJson(route('api.users.index', ['keyword' => 'miguel']));
@@ -25,6 +35,7 @@ test('keyword search matches users by name', function () {
 
 test('keyword search matches users by email', function () {
     $matchingUser = User::factory()->create(['name' => 'Miguel Angel', 'email' => 'contacto@escuela.it']);
+    Sanctum::actingAs($matchingUser);
     User::factory()->create(['name' => 'Laura Perez', 'email' => 'laura@example.com']);
 
     $response = $this->getJson(route('api.users.index', ['keyword' => 'escuela']));
@@ -35,7 +46,7 @@ test('keyword search matches users by email', function () {
 });
 
 test('keyword search returns no users when nothing matches', function () {
-    User::factory()->create(['name' => 'Miguel Angel', 'email' => 'contacto@escuela.it']);
+    Sanctum::actingAs(User::factory()->create(['name' => 'Miguel Angel', 'email' => 'contacto@escuela.it']));
 
     $response = $this->getJson(route('api.users.index', ['keyword' => 'inexistente']));
 
@@ -45,7 +56,7 @@ test('keyword search returns no users when nothing matches', function () {
 });
 
 test('the listing does not expose sensitive user attributes', function () {
-    User::factory()->create();
+    Sanctum::actingAs(User::factory()->create());
 
     $response = $this->getJson(route('api.users.index'));
 
@@ -57,6 +68,7 @@ test('the listing does not expose sensitive user attributes', function () {
 
 test('users can be filtered to only favorites', function () {
     $favoriteUser = User::factory()->favorite()->create();
+    Sanctum::actingAs($favoriteUser);
     User::factory()->create();
 
     $response = $this->getJson(route('api.users.index', [
@@ -69,7 +81,7 @@ test('users can be filtered to only favorites', function () {
 });
 
 test('users can be filtered to only non favorites', function () {
-    User::factory()->favorite()->create();
+    Sanctum::actingAs(User::factory()->favorite()->create());
     $regularUser = User::factory()->create();
 
     $response = $this->getJson(route('api.users.index', [
@@ -82,7 +94,7 @@ test('users can be filtered to only non favorites', function () {
 });
 
 test('filters on columns other than is_favorite are ignored', function () {
-    User::factory()->create(['name' => 'Ana']);
+    Sanctum::actingAs(User::factory()->create(['name' => 'Ana']));
     User::factory()->create(['name' => 'Bruno']);
 
     $response = $this->getJson(route('api.users.index', [
@@ -95,6 +107,7 @@ test('filters on columns other than is_favorite are ignored', function () {
 
 test('users can be filtered by email domain', function () {
     $matchingUser = User::factory()->create(['email' => 'ana@example.com']);
+    Sanctum::actingAs($matchingUser);
     User::factory()->create(['email' => 'bruno@escuela.it']);
     User::factory()->create(['email' => 'carla@example.com.mx']);
     User::factory()->create(['email' => 'dani@notexample.com']);
@@ -109,7 +122,7 @@ test('users can be filtered by email domain', function () {
 });
 
 test('the email domain filter is ignored when it is not active', function () {
-    User::factory()->create(['email' => 'ana@example.com']);
+    Sanctum::actingAs(User::factory()->create(['email' => 'ana@example.com']));
     User::factory()->create(['email' => 'bruno@escuela.it']);
 
     $response = $this->getJson(route('api.users.index', [
