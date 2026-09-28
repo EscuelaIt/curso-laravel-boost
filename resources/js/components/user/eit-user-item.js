@@ -30,7 +30,9 @@ export class EitUserItem extends LitElement {
   render() {
     return html`
       <p>
-          <span class="name">${this.item.name}</span>
+          <span class="name">
+              <a href="/users/${this.item.id}">${this.item.name}</a>
+          </span>
           <span>${this.item.email}</span>
       </p>
     `;

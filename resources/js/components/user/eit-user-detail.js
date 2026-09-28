@@ -21,8 +21,12 @@ export class EitUserDetail extends LitElement {
 
   render() {
     return html`
-      <h2>Detail item</h2>
-      ${JSON.stringify(this.item)}
+      <h2 class="name">
+              ${this.item.name}
+      </h2>
+      <p>
+          <span>${this.item.email}</span>
+      </p>
     `;
   }
 }

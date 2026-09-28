@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Validation\Rules\Password;
+use Inertia\ExceptionResponse;
+use Inertia\Inertia;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -24,6 +26,29 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         $this->configureDefaults();
+        $this->configureInertiaErrorPages();
+    }
+
+    /**
+     * Render the Inertia error page for the panel 404 responses.
+     *
+     * API requests are skipped because they are already wrapped with APIResponse.
+     */
+    protected function configureInertiaErrorPages(): void
+    {
+        Inertia::handleExceptionsUsing(function (ExceptionResponse $response): ?ExceptionResponse {
+            if ($response->request->is('api/*') || $response->request->expectsJson()) {
+                return null;
+            }
+
+            if ($response->statusCode() !== 404) {
+                return null;
+            }
+
+            return $response->render('ErrorPage', [
+                'status' => $response->statusCode(),
+            ])->withSharedData();
+        });
     }
 
     /**
