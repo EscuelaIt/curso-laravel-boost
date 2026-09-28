@@ -4,6 +4,7 @@
     import FolderGit2 from '@lucide/svelte/icons/folder-git-2';
     import LayoutGrid from '@lucide/svelte/icons/layout-grid';
     import MessageSquare from '@lucide/svelte/icons/message-square';
+    import Users from '@lucide/svelte/icons/users';
     import type { Snippet } from 'svelte';
     import AppLogo from '@/components/AppLogo.svelte';
     import NavFooter from '@/components/NavFooter.svelte';
@@ -21,6 +22,7 @@
     import { toUrl } from '@/lib/utils';
     import { dashboard } from '@/routes';
     import { index as messages } from '@/routes/messages';
+    import { index as users } from '@/routes/users';
     import type { NavItem } from '@/types';
 
     let {
@@ -39,6 +41,11 @@
             title: 'Messages',
             href: messages(),
             icon: MessageSquare,
+        },
+        {
+            title: 'Users',
+            href: users(),
+            icon: Users,
         },
     ];
 
