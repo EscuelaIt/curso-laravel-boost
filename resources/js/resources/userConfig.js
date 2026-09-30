@@ -2,10 +2,11 @@ import { html } from 'lit';
 import { CrudConfigBuilder } from '@dile/crud/lib/CrudConfigBuilder';
 import { ResponseApiAdapter } from '@dile/crud/lib/ResponseApiAdapter';
 import '@dile/ui/components/pages/pages.js';
-import '@dile/crud/components/action/crud-delete-action.js'
 import '../components/user/eit-user-item.js';
 import '../components/user/eit-user-form.js';
 import '../components/user/eit-user-detail.js';
+import '../components/user/eit-user-message-action.js';
+import '../components/user/eit-user-delete-action.js';
 
 class UserResponseApiAdapter extends ResponseApiAdapter {
   getElementList() {
@@ -24,18 +25,20 @@ export const userConfig = new CrudConfigBuilder('api/users', {
     relations: () => '',
     formActions: (actionName, actionIds) => html`
         <dile-pages attrForSelected="action" selected="${actionName}">
-            <dile-crud-delete-action action="DeleteAction"></dile-crud-delete-action>
+            <eit-user-message-action action="UserMessageAction"></eit-user-message-action>
+            <eit-user-delete-action action="UserDeleteAction"></eit-user-delete-action>
         </dile-pages>
     `,
     formSingleActions: (actionName, item) => html`
         <dile-pages attrForSelected="action" selected="${actionName}">
-            <dile-crud-delete-action action="DeleteAction"></dile-crud-delete-action>
+            <eit-user-message-action action="UserMessageAction"></eit-user-message-action>
+            <eit-user-delete-action action="UserDeleteAction"></eit-user-delete-action>
         </dile-pages>
     `,
   },
   customization: {
     hideCountSummary: false,
-    hideCheckboxSelection: true,
+    hideCheckboxSelection: false,
     disablePagination: false,
     disableHelp: true,
     disableKeywordSearch: false,
@@ -83,18 +86,26 @@ export const userConfig = new CrudConfigBuilder('api/users', {
   ],
   actions: {
     list: [
-      {
-        label: 'Delete resource',
-        name: 'DeleteAction',
-        destructive: true,
-      },
+          {
+            label: 'Borrar usuarios',
+            name: 'UserDeleteAction',
+            destructive: true,
+        },
+        {
+        label: 'Enviar mensaje',
+        name: 'UserMessageAction',
+        },
     ],
     single: [
       {
-        label: 'Delete resource',
-        name: 'DeleteAction',
+        label: 'Borrar usuario',
+        name: 'UserDeleteAction',
         destructive: true,
       },
+        {
+        label: 'Enviar mensaje',
+        name: 'UserMessageAction',
+        },
     ],
   },
 });

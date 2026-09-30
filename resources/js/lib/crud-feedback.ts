@@ -22,6 +22,16 @@ const crudFeedbackEvents: CrudFeedbackEvent[] = [
         type: 'error',
         defaultMessage: 'The item could not be deleted.',
     },
+    {
+        name: 'crud-action-success',
+        type: 'success',
+        defaultMessage: 'Action completed successfully.',
+    },
+    {
+        name: 'crud-action-error',
+        type: 'error',
+        defaultMessage: 'The action could not be completed.',
+    },
 ];
 
 export function initializeCrudFeedback(): void {

@@ -11,7 +11,7 @@
         "types:check": "svelte-check --tsconfig ./tsconfig.json"
     },
     "dependencies": {
-        "@dile/crud": "^2.8.1",
+        "@dile/crud": "^2.8.2",
         "@inertiajs/svelte": "^3.0.0",
         "@inertiajs/vite": "^3.0.0",
         "@laravel/passkeys": "^0.2.0",

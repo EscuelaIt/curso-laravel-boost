@@ -2,7 +2,6 @@
 
 namespace App\Http\Requests\User;
 
-use App\Concerns\PasswordValidationRules;
 use App\Concerns\ProfileValidationRules;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Contracts\Validation\Validator;
@@ -11,7 +10,7 @@ use Negartarh\APIWrapper\Facades\APIResponse;
 
 class StoreUserRequest extends FormRequest
 {
-    use PasswordValidationRules, ProfileValidationRules;
+    use ProfileValidationRules;
 
     /**
      * Get the validation rules that apply to the request.
@@ -22,7 +21,6 @@ class StoreUserRequest extends FormRequest
     {
         return [
             ...$this->profileRules(),
-            'password' => $this->passwordRules(),
             'is_favorite' => ['sometimes', 'boolean'],
         ];
     }

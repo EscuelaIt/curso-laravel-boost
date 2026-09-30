@@ -18,14 +18,13 @@ test('guests cannot manage users', function (string $method, string $routeName) 
     'destroy' => ['DELETE', 'api.users.destroy'],
 ]);
 
-test('a user can be created', function () {
+test('a user can be created with a random password', function () {
     Sanctum::actingAs(User::factory()->create());
 
     $response = $this->postJson(route('api.users.store'), [
         'name' => 'Ana Lopez',
         'email' => 'ana@example.com',
         'password' => 'secret-password',
-        'password_confirmation' => 'secret-password',
         'is_favorite' => true,
     ]);
 
@@ -38,10 +37,11 @@ test('a user can be created', function () {
     $createdUser = User::firstWhere('email', 'ana@example.com');
     expect($createdUser->name)->toBe('Ana Lopez')
         ->and($createdUser->is_favorite)->toBeTrue()
-        ->and(Hash::check('secret-password', $createdUser->password))->toBeTrue();
+        ->and($createdUser->password)->not->toBeEmpty()
+        ->and(Hash::check('secret-password', $createdUser->password))->toBeFalse();
 });
 
-test('creating a user requires name, email and password', function () {
+test('creating a user requires name and email', function () {
     Sanctum::actingAs(User::factory()->create());
 
     $this->postJson(route('api.users.store'), [])
@@ -51,7 +51,6 @@ test('creating a user requires name, email and password', function () {
         ->assertJsonValidationErrors([
             'name' => 'The name field is required.',
             'email' => 'The email field is required.',
-            'password' => 'The password field is required.',
         ]);
 
     expect(User::count())->toBe(1);
@@ -63,24 +62,9 @@ test('creating a user requires a unique email', function () {
     $this->postJson(route('api.users.store'), [
         'name' => 'Ana Lopez',
         'email' => 'taken@example.com',
-        'password' => 'secret-password',
-        'password_confirmation' => 'secret-password',
     ])
         ->assertUnprocessable()
         ->assertJsonValidationErrors(['email' => 'The email has already been taken.']);
-});
-
-test('creating a user requires the password to be confirmed', function () {
-    Sanctum::actingAs(User::factory()->create());
-
-    $this->postJson(route('api.users.store'), [
-        'name' => 'Ana Lopez',
-        'email' => 'ana@example.com',
-        'password' => 'secret-password',
-        'password_confirmation' => 'other-password',
-    ])
-        ->assertUnprocessable()
-        ->assertJsonValidationErrors(['password' => 'The password field confirmation does not match.']);
 });
 
 test('a user can be retrieved', function () {
@@ -111,7 +95,7 @@ test('a user can be updated without changing the password', function () {
     $this->putJson(route('api.users.update', $user), [
         'name' => 'Nuevo Nombre',
         'email' => 'nuevo@example.com',
-        'password' => null,
+        'password' => 'new-secret-password',
         'is_favorite' => true,
     ])
         ->assertOk()
@@ -122,20 +106,6 @@ test('a user can be updated without changing the password', function () {
     expect($user->email)->toBe('nuevo@example.com')
         ->and($user->is_favorite)->toBeTrue()
         ->and($user->password)->toBe($originalPassword);
-});
-
-test('a user password can be changed', function () {
-    Sanctum::actingAs(User::factory()->create());
-    $user = User::factory()->create();
-
-    $this->putJson(route('api.users.update', $user), [
-        'name' => $user->name,
-        'email' => $user->email,
-        'password' => 'new-secret-password',
-        'password_confirmation' => 'new-secret-password',
-    ])->assertOk();
-
-    expect(Hash::check('new-secret-password', $user->refresh()->password))->toBeTrue();
 });
 
 test('a user can keep their own email when updated', function () {

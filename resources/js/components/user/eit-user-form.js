@@ -1,7 +1,6 @@
 import { LitElement, html, css } from 'lit';
 import { DileForm } from '@dile/ui/mixins/form';
 import '@dile/ui/components/input/input.js';
-import '@dile/ui/components/password/password.js';
 
 export class EitUserForm extends DileForm(LitElement) {
   static styles = [
@@ -9,8 +8,7 @@ export class EitUserForm extends DileForm(LitElement) {
       :host {
         display: block;
       }
-      dile-input,
-      dile-password {
+      dile-input {
         margin-bottom: 1rem;
       }
     `
@@ -30,18 +28,6 @@ export class EitUserForm extends DileForm(LitElement) {
         label="Email"
         hideErrorOnInput
       ></dile-input>
-      <dile-password
-        name="password"
-        label="Password"
-        showPasswordToggle
-        hideErrorOnInput
-      ></dile-password>
-      <dile-password
-        name="password_confirmation"
-        label="Confirm password"
-        showPasswordToggle
-        hideErrorOnInput
-      ></dile-password>
     `;
   }
 }
