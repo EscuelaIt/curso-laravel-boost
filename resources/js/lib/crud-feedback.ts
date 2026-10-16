@@ -32,6 +32,21 @@ const crudFeedbackEvents: CrudFeedbackEvent[] = [
         type: 'error',
         defaultMessage: 'The action could not be completed.',
     },
+    {
+        name: 'relation-success-save',
+        type: 'success',
+        defaultMessage: 'Relation updated.',
+    },
+    {
+        name: 'relation-error-save',
+        type: 'error',
+        defaultMessage: 'The relation could not be updated.',
+    },
+    {
+        name: 'relation-error-get',
+        type: 'error',
+        defaultMessage: 'The related items could not be loaded.',
+    },
 ];
 
 export function initializeCrudFeedback(): void {

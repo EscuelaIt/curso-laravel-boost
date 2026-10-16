@@ -4,6 +4,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ErrorTestController;
 use App\Http\Controllers\FooController;
 use App\Http\Controllers\MessageController;
+use App\Http\Controllers\Project\ShowProjectPageController;
 use App\Http\Controllers\User\ShowUserPageController;
 use Illuminate\Support\Facades\Route;
 
@@ -19,6 +20,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('messages', [MessageController::class, 'store'])->name('messages.store');
     Route::inertia('users', 'users/Index')->name('users.index');
     Route::get('users/{user}', ShowUserPageController::class)->whereNumber('user')->name('users.show');
+    Route::inertia('projects', 'projects/Index')->name('projects.index');
+    Route::get('projects/{project}', ShowProjectPageController::class)->whereNumber('project')->name('projects.show');
 });
 
 require __DIR__.'/settings.php';

@@ -2,6 +2,7 @@
     import { Link } from '@inertiajs/svelte';
     import BookOpen from '@lucide/svelte/icons/book-open';
     import FolderGit2 from '@lucide/svelte/icons/folder-git-2';
+    import FolderKanban from '@lucide/svelte/icons/folder-kanban';
     import LayoutGrid from '@lucide/svelte/icons/layout-grid';
     import MessageSquare from '@lucide/svelte/icons/message-square';
     import Users from '@lucide/svelte/icons/users';
@@ -22,6 +23,7 @@
     import { toUrl } from '@/lib/utils';
     import { dashboard } from '@/routes';
     import { index as messages } from '@/routes/messages';
+    import { index as projects } from '@/routes/projects';
     import { index as users } from '@/routes/users';
     import type { NavItem } from '@/types';
 
@@ -46,6 +48,11 @@
             title: 'Users',
             href: users(),
             icon: Users,
+        },
+        {
+            title: 'Projects',
+            href: projects(),
+            icon: FolderKanban,
         },
     ];
 
